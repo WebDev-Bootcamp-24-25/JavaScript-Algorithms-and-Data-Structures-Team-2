@@ -50,3 +50,9 @@ document.getElementById('convert-btn').addEventListener('click', () => {
     return romanString;
   }
   
+  function clearText(event) {
+    event.preventDefault();
+    document.getElementById("output").textContent = "";
+    document.getElementById("number").value = "";
+    document.getElementById("number").focus();
+}
