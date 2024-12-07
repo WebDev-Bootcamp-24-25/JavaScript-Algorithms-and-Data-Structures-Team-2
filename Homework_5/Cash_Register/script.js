@@ -37,20 +37,6 @@ function updatePriceAndCid() {
     price = Number(totalPurchase.value);
 }
 
-function updateCashDrawer() {
-    cid = [
-        ["PENNY", 1.01],
-        ["NICKEL", 2.05],
-        ["DIME", 3.1],
-        ["QUARTER", 4.25],
-        ["ONE", 90],
-        ["FIVE", 55],
-        ["TEN", 20],
-        ["TWENTY", 60],
-        ["ONE HUNDRED", 100]
-    ];
-}
-
 // Add event listener to update price and cid when input values change
 totalPurchase.addEventListener("change", updatePriceAndCid);
 
@@ -59,12 +45,15 @@ clearBtn.addEventListener("click", () => {
     changeDue.innerHTML = "";
     cashPayment.value = "";
     cashPayment.focus();
+    displayCashDrawer(cid); // Reset the cash drawer display
 });
 
 // Function to check if the cash drawer has enough money to return the exact change
 function checkCashRegister(price, payment, cid) {
     let change = payment - price;
     let changeDueArray = [];
+    let cidClone = [...cid]; // Clone cid to avoid modifying the original
+    let newCid = [...cid]; // Create a new cid array for updating
 
     if (change < 0) {
         return "Customer does not have enough money to purchase the item";
@@ -78,9 +67,9 @@ function checkCashRegister(price, payment, cid) {
         return "Status: INSUFFICIENT_FUNDS";
     }
 
-    cid = [...cid].reverse();
+    cidClone = [...cidClone].reverse();
 
-    for (let [unit, amount] of cid) {
+    for (let [unit, amount] of cidClone) {
         let unitValue = currencyUnit[unit];
         let amountToReturn = 0;
 
@@ -93,6 +82,8 @@ function checkCashRegister(price, payment, cid) {
 
         if (amountToReturn > 0) {
             changeDueArray.push(`${unit}: $${amountToReturn.toFixed(2)}`);
+            // Update the new cid array with the remaining amount
+            newCid.find(([u]) => u === unit)[1] -= amountToReturn;
         }
     }
 
@@ -101,7 +92,10 @@ function checkCashRegister(price, payment, cid) {
         return "Status: INSUFFICIENT_FUNDS";
     }
 
-    let changeStatus = Object.values(cid).reduce((acc, [, amount]) => acc + amount, 0) === changeDueArray.reduce((acc, item) => acc + parseFloat(item.split(": $")[1]), 0) ? "Status: CLOSED" : "Status: OPEN";
+    let changeStatus = "Status: " + (totalInDrawer === changeDueArray.reduce((acc, item) => acc + parseFloat(item.split(": $")[1]), 0) ? "CLOSED" : "OPEN");
+
+    // Update the cid array with the new values
+    cid = newCid;
 
     return `${changeStatus}<br/>${changeDueArray.join("<br/>")}`;
 }
@@ -109,8 +103,8 @@ function checkCashRegister(price, payment, cid) {
 function calculateChange(price, payment) {
     let change = payment - price;
 
-    if(change > 0)
-    return "<br/><br/><b>TOTAL CHANGE: $" + change.toFixed(2) + "</b>";
+    if (change > 0)
+        return "<br/><br/><b>TOTAL CHANGE: $" + change.toFixed(2) + "</b>";
     else return "";
 }
 
@@ -127,5 +121,6 @@ displayCashDrawer(cid);
 // Add event listener to purchase button
 purchaseBtn.addEventListener("click", () => {
     let payment = Number(cashPayment.value);
-    changeDue.innerHTML = "<h2>Change Due</h2>" + checkCashRegister(price, payment, cid) +  calculateChange(price, payment);
+    changeDue.innerHTML = "<h2>Change Due</h2>" + checkCashRegister(price, payment, cid) + calculateChange(price, payment);
+    displayCashDrawer(cid); // Update cash drawer after processing the purchase
 });
