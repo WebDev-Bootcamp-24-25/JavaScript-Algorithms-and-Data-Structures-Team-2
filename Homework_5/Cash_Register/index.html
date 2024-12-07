@@ -16,18 +16,25 @@
         <a href="../../Homework_2/Palindrome_Checker/index.html"><button>Palindrome Checker</button></a>
         <a href="../../Homework_3/Build_A_Roman_Numeral_Converter/index.html"><button>Roman Numeral</button></a>
         <a href="../../Homework_4/Build_A_Telephone_Number_Validator/index.html"><button>Telephone Number Validator</button></a>
-        <a href="index.html"><button class="selected-nav">Telephone Number Validator</button></a>
+        <a href="index.html"><button class="selected-nav">Cash Register</button></a>
     </nav>
     <hr />
     <h1>Cash Register</h1>
 
+    <h2>Total Purchase</h2>
+    <input type="text" id="total-purchase" value="3.26">
+    <h2>Customer Payment</h2>
     <div>
-        <label for="user-input">Enter Payment:</label>
-        <input type="text" id="user-input" placeholder="Enter amount" />
-        <button id="check-btn">Check</button>
+        <label for="user-input">Enter Cash:</label>
+        <input type="text" id="cash" placeholder="Enter cash" />
+        <button id="purchase-btn">Purchase</button>
         <button id="clear-btn">Clear</button>
     </div>
-    <div id="results-div"></div>
+    <h2>Change Due</h2>
+    <div id="change-due"></div>
+    <hr />
+    <h2>Cash Drawer</h2>
+    <div id="cash-drawer"></div>
 
     <script src="script.js"></script>
 
