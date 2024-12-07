@@ -31,4 +31,5 @@ checkBtn.addEventListener("click", () => {
 clearBtn.addEventListener("click", () => {
   resultsDiv.textContent = "";
   userInput.value = "";
+  userInput.focus();
 });
