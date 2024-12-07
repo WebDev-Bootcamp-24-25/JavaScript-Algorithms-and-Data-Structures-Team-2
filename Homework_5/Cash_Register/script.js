@@ -34,9 +34,22 @@ const currencyUnit = {
     "ONE HUNDRED": 100
 };
 
+// Function to validate numeric input
+function isValidNumber(value) {
+    const num = Number(value);
+    return !isNaN(num) && num >= 0;
+}
+
 // Function to update price and cid when input values change
 function updatePriceAndCid() {
-    price = Number(totalPurchase.value);
+    const newPrice = totalPurchase.value.trim();
+    if (isValidNumber(newPrice)) {
+        price = Number(newPrice);
+    } else {
+        alert("Invalid total purchase amount. Please enter a valid number.");
+        totalPurchase.value = "3.26"; // Reset to default or clear
+        updatePriceAndCid();
+    }
 }
 
 // Function to reset cash in drawer to initial values
@@ -76,9 +89,7 @@ function checkCashRegister(price, payment, cid) {
     let newCid = [...cid]; // Create a new cid array for updating
 
     if (change < 0) {
-        let alertMessage = "Customer does not have enough money to purchase the item";
-        alert(alertMessage);
-        return alertMessage;
+        return "Customer does not have enough money to purchase the item";
     } else if (change === 0) {
         return "No change due - customer paid with exact cash";
     }
@@ -133,7 +144,6 @@ function calculateChange(price, payment) {
 // Function to display cash drawer
 function displayCashDrawer(cid) {
     let cashDrawerContent = cid.map(([unit, amount]) => `${unit}: $${amount.toFixed(2)}`).join("<br/>");
-
     cashDrawer.innerHTML = cashDrawerContent;
 }
 
@@ -142,7 +152,15 @@ displayCashDrawer(cid);
 
 // Add event listener to purchase button
 purchaseBtn.addEventListener("click", () => {
-    let payment = Number(cashPayment.value);
+    const paymentInput = cashPayment.value.trim();
+    if (!isValidNumber(paymentInput)) {
+        alert("Invalid cash amount. Please enter a valid number.");
+        cashPayment.value = "";
+        cashPayment.focus();
+        return;
+    }
+
+    let payment = Number(paymentInput);
     titleChangeDue.innerHTML = "<h2>Change Due</h2>";
     changeDue.innerHTML = checkCashRegister(price, payment, cid);
     totalChangeDue.innerHTML = calculateChange(price, payment);
