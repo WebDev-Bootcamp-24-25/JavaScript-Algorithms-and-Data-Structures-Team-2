@@ -1,0 +1,29 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 50px;
+}
+
+#output {
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #333;
+}
+
+input,
+button {
+    padding: 10px;
+    margin: 5px;
+    font-size: 1em;
+}
+
+button {
+    cursor: pointer;
+}
+
+.circular-image {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
