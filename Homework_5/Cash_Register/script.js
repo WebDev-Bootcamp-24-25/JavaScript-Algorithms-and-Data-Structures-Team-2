@@ -1,6 +1,8 @@
 const totalPurchase = document.getElementById("total-purchase");
 const cashPayment = document.getElementById("cash");
 const changeDue = document.getElementById("change-due");
+const titleChangeDue = document.getElementById("title-change-due");
+const totalChangeDue = document.getElementById("total-change-due");
 const cashDrawer = document.getElementById("cash-drawer");
 const purchaseBtn = document.getElementById("purchase-btn");
 const clearBtn = document.getElementById("clear-btn");
@@ -37,15 +39,33 @@ function updatePriceAndCid() {
     price = Number(totalPurchase.value);
 }
 
+// Function to reset cash in drawer to initial values
+function resetCashDrawer() {
+    cid = [
+        ["PENNY", 1.01],
+        ["NICKEL", 2.05],
+        ["DIME", 3.1],
+        ["QUARTER", 4.25],
+        ["ONE", 90],
+        ["FIVE", 55],
+        ["TEN", 20],
+        ["TWENTY", 60],
+        ["ONE HUNDRED", 100]
+    ];
+}
+
 // Add event listener to update price and cid when input values change
 totalPurchase.addEventListener("change", updatePriceAndCid);
 
 // Add event listener to clear button
 clearBtn.addEventListener("click", () => {
     changeDue.innerHTML = "";
+    totalChangeDue.innerHTML = "";
+    titleChangeDue.innerHTML = "";
     cashPayment.value = "";
     cashPayment.focus();
-    displayCashDrawer(cid); // Reset the cash drawer display
+    resetCashDrawer(); // Reset cid to initial values
+    displayCashDrawer(cid); // Update cash drawer display with initial values
 });
 
 // Function to check if the cash drawer has enough money to return the exact change
@@ -56,7 +76,9 @@ function checkCashRegister(price, payment, cid) {
     let newCid = [...cid]; // Create a new cid array for updating
 
     if (change < 0) {
-        return "Customer does not have enough money to purchase the item";
+        let alertMessage = "Customer does not have enough money to purchase the item";
+        alert(alertMessage);
+        return alertMessage;
     } else if (change === 0) {
         return "No change due - customer paid with exact cash";
     }
@@ -121,6 +143,8 @@ displayCashDrawer(cid);
 // Add event listener to purchase button
 purchaseBtn.addEventListener("click", () => {
     let payment = Number(cashPayment.value);
-    changeDue.innerHTML = "<h2>Change Due</h2>" + checkCashRegister(price, payment, cid) + calculateChange(price, payment);
+    titleChangeDue.innerHTML = "<h2>Change Due</h2>";
+    changeDue.innerHTML = checkCashRegister(price, payment, cid);
+    totalChangeDue.innerHTML = calculateChange(price, payment);
     displayCashDrawer(cid); // Update cash drawer after processing the purchase
 });
