@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Search</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <a href="../../index.html"><img src="../../logo.png" class="circular-image" /></a>
+    <h1>Javascript Playground</h1>
+    <h2>Created by Team 2</h2>
+    <nav class="main-nav">
+        <a href="../../Homework_2/Palindrome_Checker/index.html"><button>Palindrome Checker</button></a>
+        <a href="../../Homework_3/Build_A_Roman_Numeral_Converter/index.html"><button>Roman Numeral
+                Converter</button></a>
+        <a href="../../Homework_4/Build_A_Telephone_Number_Validator/index.html"><button>Telephone Number
+                Validator</button></a>
+        <a href="../../Homework_5/Cash_Register/index.html"><button>Cash Register</button></a>
+        <a href="index.html"><button class="selected-nav">Pokemon Search</button></a>
+    </nav>
+    <hr />
+    <h1>Pokemon Search</h1>
+
+    <div>
+        <label for="user-input">Enter Pokémon Name or ID:</label>
+        <input type="text" id="search-input" placeholder="Pokémon Name or ID" required />
+        <button id="search-button">Search</button>
+        <button id="clear-button">Clear</button>
+    </div>
+    <div id="sprite-div">
+        <h3>Pokémon Information</h3>
+        <table id="sprite-table">
+            <tr>
+                <td>Name:</td>
+                <td>
+                    <div id="pokemon-name"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>ID:</td>
+                <td>
+                    <div id="pokemon-id"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>Weight:</td>
+                <td>
+                    <div id="weight"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>Height:</td>
+                <td>
+                    <div id="height"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>Types:</td>
+                <td>
+                    <div id="types"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>Sprite:</td>
+                <td>
+                    <div id="pokemon-sprite"></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="stats-div">
+        <h3>Pokémon Stats</h3>
+        <table id="stats-table">
+            <thead>
+                <th>Base</th>
+                <th>Stats</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>HP:</td>
+                    <td id="hp"></td>
+                </tr>
+                <tr>
+                    <td>Attack:</td>
+                    <td id="attack"></td>
+                </tr>
+                <tr>
+                    <td>Defense:</td>
+                    <td id="defense"></td>
+                </tr>
+                <tr>
+                    <td>Sp. Attack:</td>
+                    <td id="special-attack"></td>
+                </tr>
+                <tr>
+                    <td>Sp. Defense:</td>
+                    <td id="special-defense"></td>
+                </tr>
+                <tr>
+                    <td>Speed:</td>
+                    <td id="speed"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
